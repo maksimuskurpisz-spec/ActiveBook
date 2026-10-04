@@ -1,0 +1,8 @@
+{
+  "name": "ActiveBook",
+  "description": "Dziennik i planer treningowy z folderami planów, slotami na ćwiczenia (serie, powtórzenia/czas, ciężar) oraz śledzeniem progresji w czasie.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

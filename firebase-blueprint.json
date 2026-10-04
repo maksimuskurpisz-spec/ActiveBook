@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Auth UID of the user" },
+        "email": { "type": "string", "description": "Email address of the user" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "createdAt": { "type": "string", "description": "Account creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      },
+      "required": ["userId", "email"]
+    },
+    "Folder": {
+      "title": "Folder",
+      "description": "Workout plan folder",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Folder unique ID" },
+        "name": { "type": "string", "description": "Folder name" },
+        "color": { "type": "string", "description": "Accent color hex" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "name"]
+    },
+    "Workout": {
+      "title": "Workout",
+      "description": "Workout plan document with exercise slots",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Workout unique ID" },
+        "folderId": { "type": "string", "description": "Parent folder ID" },
+        "name": { "type": "string", "description": "Workout plan name" },
+        "exercises": { "type": "array", "description": "List of planned exercise slots" },
+        "updatedAt": { "type": "string", "description": "Update timestamp" }
+      },
+      "required": ["id", "folderId", "name"]
+    },
+    "Session": {
+      "title": "Session",
+      "description": "Completed workout session in history",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Session unique ID" },
+        "workoutPlanId": { "type": "string", "description": "Associated plan ID" },
+        "workoutName": { "type": "string", "description": "Workout name" },
+        "folderName": { "type": "string", "description": "Folder name" },
+        "date": { "type": "string", "description": "Workout date" },
+        "durationMinutes": { "type": "number", "description": "Duration in minutes" },
+        "exercises": { "type": "array", "description": "List of completed exercises and sets" },
+        "notes": { "type": "string", "description": "Session notes" }
+      },
+      "required": ["id", "workoutName", "date"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile data"
+    },
+    "/users/{userId}/folders/{folderId}": {
+      "schema": { "$ref": "#/entities/Folder" },
+      "description": "Workout folders for a specific user"
+    },
+    "/users/{userId}/workouts/{workoutId}": {
+      "schema": { "$ref": "#/entities/Workout" },
+      "description": "Planned workouts for a specific user"
+    },
+    "/users/{userId}/history/{sessionId}": {
+      "schema": { "$ref": "#/entities/Session" },
+      "description": "Completed workout sessions for a specific user"
+    }
+  }
+}
